@@ -33,6 +33,9 @@ const ProductDetails = () => {
                 if(status === 200){
                     setDetails(data)
 
+                    const fromCartQuantity = cart.items.filter((prod) => prod.id === data.id)
+                    setQuantity(fromCartQuantity.length > 0 ? fromCartQuantity[0].quantity : 1)
+
                     const otherProds = await fetchProducts()
 
                     setOtherProds(otherProds)

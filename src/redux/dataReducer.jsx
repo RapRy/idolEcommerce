@@ -21,7 +21,7 @@ export const dataSlice = createSlice({
         updateCart: (state, action) => {
             const newCart = state.cart.items.filter((prod) => prod.id !== action.payload.id)
 
-            if(newCart.length > 0){
+            if(state.cart.items.length > 0){
                 state.cart.items = [ ...newCart, action.payload ]
                 const quantity = state.cart.items.map(prod => prod.quantity)
 

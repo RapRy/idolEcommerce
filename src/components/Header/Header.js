@@ -34,7 +34,7 @@ const Header = () => {
                     <Link to="/" className="rounded-lg bg-blue-800 block p-1.5 relative">
                         <ShoppingCartIcon className="w-8 h-8 inline-block text-white" />
                         {
-                            !_.isEmpty(cart) &&
+                            cart.count !== 0 &&
                                 <span className="absolute -top-1.5 -left-1.5 block bg-yellow-500 rounded-full px-2 py-0.5 font-ubuntu font-bold text-sm text-white">{cart.count}</span>
                         }
                     </Link>
