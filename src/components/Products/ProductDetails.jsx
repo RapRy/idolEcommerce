@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import * as api from '../../api'
-import { addToCart } from '../../globalFunctions/Cart'
+import { quantityCheck } from '../../globalFunctions/Cart'
 
-import { ShoppingCartIcon } from '@heroicons/react/solid'
+import Thumbnail from './Thumbnail'
+
+const availStock = 30
 
 const ProductDetails = () => {
     const { category, id } = useParams()
@@ -51,7 +53,7 @@ const ProductDetails = () => {
     }, [id])
 
     return (
-        <div className="px-5 pt-10 bg-gray-100">
+        <div className="px-5 pt-10 pb-10 bg-gray-100">
             {  
                 details && 
                     <div className="rounded-xl bg-white shadow-lg p-5 mb-20">
@@ -63,16 +65,17 @@ const ProductDetails = () => {
                             <p className="font-ubuntu text-sm font-normal text-gray-500 leading-relaxed text-justify mb-6">{details.description}</p>
                         </div>
                         <div className="mt-6">
-                            <h1 className="font-ubuntu text-3xl font-bold pb-3 text-blue-600">{`$ ${details.price}`}</h1>
+                            <h1 className="font-ubuntu text-3xl font-bold pb-3 text-blue-600">{details.price !== undefined ? `$ ${details.price}` : ""}</h1>
                             <div className="mt-2.5">
-                                <button onClick={() => setQuantity(prevState => prevState - 1)} className="bg-gradient-to-b from-gray-300 to-gray-200 inline-block px-2.5 py-2 rounded-md border border-gray-400 text-sm mr-2">➖</button>
+                                <button onClick={() => setQuantity(prevState => parseInt(prevState) - 1)} className="bg-gradient-to-b from-gray-300 to-gray-200 inline-block px-2.5 py-2 rounded-md border border-gray-400 text-sm mr-2">➖</button>
                                 <input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-14 text-center bg-white inline-block px-4 py-2 rounded-md border shadow-inner text-sm font-ubuntu font-bold text-blue-600" />
-                                <button onClick={() => setQuantity(prevState => prevState + 1)} className="bg-gradient-to-b from-gray-300 to-gray-200 inline-block px-2.5 py-2 rounded-md border border-gray-400 text-sm ml-2 mr-4">➕</button>
+                                <button onClick={() => setQuantity(prevState => parseInt(prevState) + 1)} className="bg-gradient-to-b from-gray-300 to-gray-200 inline-block px-2.5 py-2 rounded-md border border-gray-400 text-sm ml-2 mr-4">➕</button>
                                 <span className="text-base font-ubuntu font-normal text-gray-600">Quantity</span>
+                                <p className="pb-5 font-ubuntu text-sm text-blue-600 font-semibold mt-2">{`Available Stock/s: ${availStock} Item/s`}</p>
                             </div>
                             <div className="mt-8">
-                                <a href="#" className="inline-block rounded-lg w-40 bg-yellow-500 text-center py-3 font-ubuntu text-white font-bold text-base mr-4">Buy Item</a>
-                                <button onClick={() => addToCart(details, dispatch, cart.items, quantity, 'addQuantity')} className="inline-block rounded-lg w-40 bg-blue-600 text-center py-3 font-ubuntu text-white font-bold text-base">Add to Cart</button>
+                                <a href="/" className="inline-block rounded-lg w-40 bg-yellow-500 text-center py-3 font-ubuntu text-white font-bold text-base mr-4">Buy Item</a>
+                                <button onClick={() => quantityCheck(details, availStock, dispatch, cart.items, quantity, setQuantity, 'addQuantity')} className="inline-block rounded-lg w-40 bg-blue-600 text-center py-3 font-ubuntu text-white font-bold text-base">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -84,22 +87,7 @@ const ProductDetails = () => {
                         <h1 className="font-ubuntu text-lg font-medium text-gray-800 ml-4">Other Products You Might Like</h1> 
                         <div className="grid grid-cols-2 gap-5 mt-6 mb-8">
                             {
-                                otherProducts.map((product, i) => (
-                                    <div className="rounded-lg bg-white shadow-lg p-5" key={product.id}>
-                                        <div className="w-full h-40 text-center relative mb-5">
-                                            <Link to={`/store/${product.category.replace(" ", "-")}/item/${product.id}`}>
-                                                <img src={product.image} alt={product.title} className="h-full inline-block object-contain" />
-                                            </Link>
-                                            <button onClick={() => addToCart(product, dispatch, cart, 1, "addToCart")} className="bg-blue-800 hover:bg-blue-600 w-14 h-14 rounded-full absolute -bottom-2.5 right-0 shadow-md">
-                                                <ShoppingCartIcon className="w-9 h-9 mt-1 ml-2.5 text-white" />
-                                            </button>
-                                        </div>
-                                        <div>
-                                            <p className="whitespace-nowrap overflow-ellipsis overflow-x-hidden font-ubuntu text-sm font-semibold pb-3 text-gray-800">{product.title}</p>
-                                            <span className="font-ubuntu text-sm text-blue-900 font-bold">{`$ ${product.price}`}</span>
-                                        </div>
-                                    </div>
-                                ))
+                                otherProducts.map(product => <Thumbnail key={product.id} product={product} />)
                             }
                         </div>
                     </div>

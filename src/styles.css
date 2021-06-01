@@ -28105,6 +28105,10 @@ video {
   grid-template-columns: 1fr auto auto;
 }
 
+.grid-cols-customGrid2{
+  grid-template-columns: 1fr auto;
+}
+
 .auto-cols-auto{
   grid-auto-columns: auto;
 }
@@ -59783,6 +59787,10 @@ video {
     grid-template-columns: 1fr auto auto;
   }
 
+  .sm\:grid-cols-customGrid2{
+    grid-template-columns: 1fr auto;
+  }
+
   .sm\:auto-cols-auto{
     grid-auto-columns: auto;
   }
@@ -91294,6 +91302,10 @@ video {
 
   .md\:grid-cols-customGrid{
     grid-template-columns: 1fr auto auto;
+  }
+
+  .md\:grid-cols-customGrid2{
+    grid-template-columns: 1fr auto;
   }
 
   .md\:auto-cols-auto{
@@ -122809,6 +122821,10 @@ video {
     grid-template-columns: 1fr auto auto;
   }
 
+  .lg\:grid-cols-customGrid2{
+    grid-template-columns: 1fr auto;
+  }
+
   .lg\:auto-cols-auto{
     grid-auto-columns: auto;
   }
@@ -154322,6 +154338,10 @@ video {
     grid-template-columns: 1fr auto auto;
   }
 
+  .xl\:grid-cols-customGrid2{
+    grid-template-columns: 1fr auto;
+  }
+
   .xl\:auto-cols-auto{
     grid-auto-columns: auto;
   }
@@ -185833,6 +185853,10 @@ video {
 
   .\32xl\:grid-cols-customGrid{
     grid-template-columns: 1fr auto auto;
+  }
+
+  .\32xl\:grid-cols-customGrid2{
+    grid-template-columns: 1fr auto;
   }
 
   .\32xl\:auto-cols-auto{

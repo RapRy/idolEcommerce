@@ -32,10 +32,22 @@ export const dataSlice = createSlice({
 
                 state.cart.count = _.sum(quantity)
             }
+        },
+        removeItem: (state, action) => {
+            const newCart = state.cart.items.filter((prod) => prod.id !== action.payload)
+
+            state.cart.items = newCart
+
+            const quantity = newCart.map(prod => prod.quantity)
+
+            state.cart.count = _.sum(quantity)
+        },
+        removeAll: (state) => {
+            state.cart = { items: [], count: 0 }
         }
     }
 })
 
-export const { setCategories, setProducts, updateCart } = dataSlice.actions
+export const { setCategories, setProducts, updateCart, removeItem, removeAll } = dataSlice.actions
 
 export default dataSlice.reducer

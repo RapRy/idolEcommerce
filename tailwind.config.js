@@ -7,7 +7,8 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'customGrid': '1fr auto auto'
+        'customGrid': '1fr auto auto',
+        'customGrid2': '1fr auto'
       }
     },
   },

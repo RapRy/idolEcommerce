@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -6,7 +6,6 @@ import Navigation from './Navigation'
 import SearchBar from './SearchBar'
 import { ShoppingCartIcon, ShoppingBagIcon, UserIcon } from '@heroicons/react/solid'
 
-import _ from 'lodash'
 
 const Header = () => {
     const [isMobile, setIsMobile] = useState(true)
@@ -31,7 +30,7 @@ const Header = () => {
                 </div>
                 <div>
                     {isMobile === false && <SearchBar />}
-                    <Link to="/" className="rounded-lg bg-blue-800 block p-1.5 relative">
+                    <Link to="/cart" className="rounded-lg bg-blue-800 block p-1.5 relative">
                         <ShoppingCartIcon className="w-8 h-8 inline-block text-white" />
                         {
                             cart.count !== 0 &&

@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import { useHistory, useParams, Link } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 import * as api from '../../api'
 import { setProducts } from '../../redux/dataReducer'
-import { addToCart } from '../../globalFunctions/Cart'
 import _ from 'lodash'
 
-import { ShoppingCartIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
+
+import Thumbnail from './Thumbnail'
 
 const ProductList = ({ heading, apiRoute, domRoute }) => {
     const dispatch = useDispatch()
-    const { cart } = useSelector(state => state.data)
     const history = useHistory()
     const { pageNumber, category } = useParams()
 
@@ -87,22 +87,9 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
             <div className="grid grid-cols-2 gap-5 mt-6 mb-8">
                 {
                     currentProducts &&
-                        currentProducts.map(product => (
-                                <div className="rounded-lg bg-white shadow-lg p-5" key={product.id}>
-                                    <div className="w-full h-40 text-center relative mb-5">
-                                        <Link to={`/store/${product.category.replace(" ", "-")}/item/${product.id}`}>
-                                            <img src={product.image} alt={product.title} className="h-full inline-block object-contain" />
-                                        </Link>
-                                        <button onClick={() => addToCart(product, dispatch, cart.items, 1, "addToCart")} className="bg-blue-800 hover:bg-blue-600 w-14 h-14 rounded-full absolute -bottom-2.5 right-0 shadow-md">
-                                            <ShoppingCartIcon className="w-9 h-9 mt-1 ml-2.5 text-white" />
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <p className="whitespace-nowrap overflow-ellipsis overflow-x-hidden font-ubuntu text-sm font-semibold pb-3 text-gray-800">{product.title}</p>
-                                        <span className="font-ubuntu text-sm text-blue-900 font-bold">{`$ ${product.price}`}</span>
-                                    </div>
-                                </div>
-                            ))
+                        currentProducts.map((product) => (
+                            <Thumbnail key={product.id} product={product} />
+                        ))
                 }
             </div>
 
