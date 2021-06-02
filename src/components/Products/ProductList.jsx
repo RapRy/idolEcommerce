@@ -25,7 +25,14 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
 
     useEffect(() => {
 
+        if(window.matchMedia("(min-width: 1024px)").matches && offset !== 8){
+            setOffset(8)
+        }
+
         if(pageNumber !== undefined || products.length > offset){
+
+            console.log(pageNumber)
+
             setPageCount(Math.ceil(products.length / offset))
             const newOffset = offset * (parseInt(pageNumber) - 1)
             const limit = newOffset + offset
@@ -43,7 +50,6 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
                 setCurProds(curProds)
             }
         }else{
-
             try {
                 const fetchProducts = async () => {
                     const { data, status } = await api.getProducts(apiRoute)
@@ -63,6 +69,9 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
                         }
     
                         setCurProds(curProds)
+
+                        console.log('fetch')
+                        
                         
                     }else if(status === 400){
                         console.log('no results')
@@ -75,16 +84,12 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
             }
         }
 
-        return () => {
-            setProds([])
-        }
-
-    }, [dispatch, pageNumber, category])
+    }, [dispatch, category, pageNumber])
 
     return (
         <div className="mt-10 px-5 relative z-10">
             { heading !== "" && <h1 className="font-ubuntu text-lg font-medium text-gray-800 ml-4">{heading}</h1> }
-            <div className="grid grid-cols-2 gap-5 mt-6 mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6 mb-8">
                 {
                     currentProducts &&
                         currentProducts.map((product) => (
@@ -95,7 +100,7 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
 
             {
                     <ReactPaginate
-                        containerClassName="max-w-screen-md text-center"
+                        containerClassName="max-w-screen-md text-center mx-auto"
                         previousLabel={<ChevronDoubleLeftIcon className="w-6 text-blue-900 mr-2 hover:bg-white hover:text-yellow-500 transition rounded-sm p-1" />}
                         previousClassName="inline-block"
                         nextLabel={<ChevronDoubleRightIcon className="w-6 text-blue-900 ml-2 hover:bg-white hover:text-yellow-500 transition rounded-sm p-1" />}

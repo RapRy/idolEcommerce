@@ -4,6 +4,7 @@ import ProductList from '../Products/ProductList'
 
 const Home = () => {
     return (
+        
         <div className="pb-10 bg-gray-100">
             <ImageSlider />
             <Categories />

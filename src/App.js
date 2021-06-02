@@ -10,6 +10,9 @@ const Home = lazy(() => import('./components/Home/Home'))
 const Store = lazy(() => import('./components/Store/Store'))
 const ProductView = lazy(() => import('./components/Products/ProductDetails'))
 const ShoppingCart = lazy(() => import('./components/ShoppingCart/ShoppingCart'))
+const SignIn = lazy(() => import('./components/User/SignIn'))
+const Register = lazy(() => import('./components/User/Register'))
+const ForgotPassword = lazy(() => import('./components/User/ForgotPassword'))
 
 const App = () => {
 
@@ -26,6 +29,9 @@ const App = () => {
             <Route exact path="/store/:category" component={Store} />
             <Route exact path="/store/:category/item/:id" component={ProductView} />
             <Route exact path="/cart" component={ShoppingCart} />
+            <Route exact path="/login" component={SignIn} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/password/forgot" component={ForgotPassword} />
           </Switch>
         </Suspense>
 

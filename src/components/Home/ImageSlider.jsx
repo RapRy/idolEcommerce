@@ -10,11 +10,13 @@ const imgPlaceholder = [
 const ImageSlider = () => {
 
     return (
-        <Carousel showThumbs={false} showIndicators={true} showStatus={false} infiniteLoop={true} autoPlay={true} showArrows={false} interval={5000}>
-            {
-                imgPlaceholder.map((img, i) => <img key={i} src={img} alt={`Banner ${++i}`} />)
-            }
-        </Carousel>
+        <div className="h-96">
+            <Carousel showThumbs={false} showIndicators={true} showStatus={false} infiniteLoop={true} autoPlay={true} showArrows={false} interval={5000}>
+                {
+                    imgPlaceholder.map((img, i) => <img className="h-96" key={i} src={img} alt={`Banner ${++i}`} />)
+                }
+            </Carousel>
+        </div>
     )
 }
 

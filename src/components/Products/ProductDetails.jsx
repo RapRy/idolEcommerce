@@ -5,14 +5,13 @@ import { useParams } from 'react-router-dom'
 import * as api from '../../api'
 import { quantityCheck } from '../../globalFunctions/Cart'
 
-import Thumbnail from './Thumbnail'
+import OtherProducts from "../Products/OtherProducts"
 
 const availStock = 30
 
 const ProductDetails = () => {
     const { category, id } = useParams()
     const [details, setDetails] = useState({})
-    const [otherProducts, setOtherProds] = useState([])
     const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch()
     const { cart } = useSelector(state => state.data)
@@ -40,7 +39,6 @@ const ProductDetails = () => {
 
                     const otherProds = await fetchProducts()
 
-                    setOtherProds(otherProds)
                 }else if(status === 400){
                     console.log('no details')
                 }
@@ -80,18 +78,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
             }
-
-            {
-                otherProducts && 
-                    <div>
-                        <h1 className="font-ubuntu text-lg font-medium text-gray-800 ml-4">Other Products You Might Like</h1> 
-                        <div className="grid grid-cols-2 gap-5 mt-6 mb-8">
-                            {
-                                otherProducts.map(product => <Thumbnail key={product.id} product={product} />)
-                            }
-                        </div>
-                    </div>
-            }
+            <OtherProducts />
         </div>
     )
 }
