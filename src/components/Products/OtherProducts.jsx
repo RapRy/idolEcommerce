@@ -29,6 +29,8 @@ const OtherProducts = () => {
                         console.log('no results')
                     }
                 }
+
+                fetchProducts()
             } catch (error) {
                 console.log(error)
             }
@@ -43,7 +45,7 @@ const OtherProducts = () => {
     return (
         <div>
             <h1 className="font-ubuntu text-lg font-medium text-gray-800 ml-4">Other Products You Might Like</h1>
-            <div className="grid grid-cols-2 gap-5 mt-6 mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-6 mb-8">
                 {
                     otherProducts.map((prod) => (
                         <Thumbnail key={prod.id} product={prod} />
