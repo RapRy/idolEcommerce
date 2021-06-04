@@ -51,7 +51,7 @@ const Register = () => {
                             </div>
                             <div className="mb-5">
                                 <input type="checkbox" name="tnc" id="tnc" />
-                                <label htmlFor="tnc" className="font-ubuntu text-xs text-gray-600 mb-1.5 ml-2">I hereby certify that all information is true and accurate and agree to the <a href="#" className="text-blue-500 hover:text-yellow-500">IE Terms and Conditions</a>.</label>
+                                <label htmlFor="tnc" className="font-ubuntu text-xs text-gray-600 mb-1.5 ml-2">I hereby certify that all information is true and accurate and agree to the <a href="/" className="text-blue-500 hover:text-yellow-500">IE Terms and Conditions</a>.</label>
                             </div>
                             <div>
                                 <button className="w-full rounded-lg bg-yellow-500 py-3 font-ubuntu font-bold text-base text-white mb-5" type="submit">Register</button>

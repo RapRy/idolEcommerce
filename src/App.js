@@ -13,6 +13,7 @@ const ShoppingCart = lazy(() => import('./components/ShoppingCart/ShoppingCart')
 const SignIn = lazy(() => import('./components/User/SignIn'))
 const Register = lazy(() => import('./components/User/Register'))
 const ForgotPassword = lazy(() => import('./components/User/ForgotPassword'))
+const FourOFour = lazy(() => import('./components/FourOFour'))
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route exact path="/login" component={SignIn} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/password/forgot" component={ForgotPassword} />
+            <Route path="*" component={FourOFour} />
           </Switch>
         </Suspense>
 

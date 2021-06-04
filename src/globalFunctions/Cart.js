@@ -24,16 +24,20 @@ export const addToCart = async (product, dispatch, cart, quantity, actionType) =
 
     const update = (product, cart, quantity, dispatch) => {
         const filProds = cart.items.filter((prod) => prod.id !== product.id)
+        const dateNow = new Date()
+        const month = dateNow.getMonth() + 1
+        const date = dateNow.getDate()
+        const year = dateNow.getFullYear()
 
         let newCartItems = []
         let newCount = 0
 
         if(cart.items.length > 0){
-            newCartItems = [ ...filProds, { ...product, quantity } ]
+            newCartItems = [ ...filProds, { ...product, quantity, dateAdded: `${year}-${date}-${month}` } ]
             const count = newCartItems.map(prod => prod.quantity)
             newCount = _.sum(count)
         }else{
-            newCartItems = [ ...cart.items, { ...product, quantity } ]
+            newCartItems = [ ...cart.items, { ...product, quantity, dateAdded: `${year}-${date}-${month}` } ]
             const count = newCartItems.map(prod => prod.quantity)
             newCount = _.sum(count)
         }

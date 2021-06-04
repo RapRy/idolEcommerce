@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
@@ -33,7 +33,7 @@ const Header = () => {
         if(window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(min-width: 1280px)").matches || window.matchMedia("(min-width: 1536px)").matches){
             dispatch(setIsMobile(!isMobile))
         }
-    }, [])
+    }, [dispatch]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { ArrowSmRightIcon } from '@heroicons/react/outline'
 import Welcome from './Welcome'
 
 const SignIn = () => {

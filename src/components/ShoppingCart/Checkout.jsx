@@ -15,7 +15,7 @@ const Checkout = () => {
         const total = cart.items.map((prod) => prod.price * prod.quantity)
 
         setSubTotal(_.sum(total))
-    }, [cart.count])
+    }, [cart.count]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="bg-white shadow-md rounded-xl p-5 lg:p-10 mb-5 lg:mb-24 grid grid-cols-2 lg:grid-cols-customGrid gap-5 items-center">

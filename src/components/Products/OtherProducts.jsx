@@ -40,7 +40,7 @@ const OtherProducts = () => {
             setOtherProducts(shuffled.filter((prod, i) => i < 6))
         }
 
-    }, [products])
+    }, [products, dispatch])
 
     return (
         <div>

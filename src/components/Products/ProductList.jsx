@@ -99,7 +99,7 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
             }
         }
 
-    }, [dispatch, category, pageNumber])
+    }, [dispatch, category, pageNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="mt-10 px-5 relative z-10 max-w-screen-xl mx-auto">

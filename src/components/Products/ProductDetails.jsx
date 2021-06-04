@@ -11,7 +11,7 @@ import { ChevronRightIcon } from '@heroicons/react/outline'
 const availStock = 30
 
 const ProductDetails = () => {
-    const { category, id } = useParams()
+    const { id } = useParams()
     const [details, setDetails] = useState({})
     const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch()
@@ -20,16 +20,6 @@ const ProductDetails = () => {
 
     useEffect(() => {
         try {
-            const fetchProducts = async () => {
-                const { data, status } = await api.getProducts(`products/category/${category.replace("-", " ")}`)
-
-                if(status === 200){
-                    return data.filter(prod => prod.id !== parseInt(id))
-                }else if(status === 400){
-                    console.log('no results')
-                }
-            }
-
             const fetchDetails = async () => {
                 const { data, status } = await api.getProductDetails(id)
 
@@ -38,8 +28,6 @@ const ProductDetails = () => {
 
                     const fromCartQuantity = cart.items.filter((prod) => prod.id === data.id)
                     setQuantity(fromCartQuantity.length > 0 ? fromCartQuantity[0].quantity : 1)
-
-                    const otherProds = await fetchProducts()
 
                 }else if(status === 400){
                     console.log('no details')
@@ -50,7 +38,7 @@ const ProductDetails = () => {
         } catch (error) {
             console.log(error)
         }
-    }, [id])
+    }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="px-5 pt-10 pb-10 bg-gray-100">

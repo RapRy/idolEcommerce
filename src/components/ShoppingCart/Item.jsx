@@ -16,7 +16,7 @@ const Item = ({ prod }) => {
         if(prod.quantity !== quantity){
             quantityCheck(prod, availStock, dispatch, cart, quantity, setQuantity, 'addQuantityFromCart')
         }
-    }, [quantity])
+    }, [quantity]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="bg-white shadow-md rounded-xl p-5 lg:p-10 mb-5 lg:mb-8 lg:grid lg:grid-cols-6 lg:gap-5">
