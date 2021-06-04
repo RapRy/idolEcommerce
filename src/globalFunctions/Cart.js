@@ -3,6 +3,7 @@ import 'animate.css/animate.min.css'
 import { store as notif } from 'react-notifications-component'
 
 import { updateCart, removeItem, removeAll } from '../redux/dataReducer'
+import _ from 'lodash'
 
 const notification = (messageType, message) => {
     notif.addNotification({
@@ -21,13 +22,32 @@ const notification = (messageType, message) => {
 
 export const addToCart = async (product, dispatch, cart, quantity, actionType) => {
 
-    if(cart.length > 0){
+    const update = (product, cart, quantity, dispatch) => {
+        const filProds = cart.items.filter((prod) => prod.id !== product.id)
+
+        let newCartItems = []
+        let newCount = 0
+
+        if(cart.items.length > 0){
+            newCartItems = [ ...filProds, { ...product, quantity } ]
+            const count = newCartItems.map(prod => prod.quantity)
+            newCount = _.sum(count)
+        }else{
+            newCartItems = [ ...cart.items, { ...product, quantity } ]
+            const count = newCartItems.map(prod => prod.quantity)
+            newCount = _.sum(count)
+        }
+        
+        dispatch(updateCart({ items: newCartItems, count: newCount }))
+    }
+
+    if(cart.items.length > 0){
         const promise = new Promise((resolve) => {
-            resolve(cart.filter((prod) => prod.id === product.id))
+            resolve(cart.items.filter((prod) => prod.id === product.id))
         })
     
         let result = await promise
-    
+
         if(result.length > 0){
 
             switch(actionType){
@@ -40,26 +60,24 @@ export const addToCart = async (product, dispatch, cart, quantity, actionType) =
                     if(difference === 0){
                         notification("warning", `You already have ${quantity > 1 ? `${quantity} items` : `${quantity} item`} of ${product.title} in the cart`)
                     }else{
-                        dispatch(updateCart({ ...product, quantity: quantity }))
+                        update(product, cart, quantity, dispatch)
                         notification("info", `Added ${difference > 1 ? `${difference} items` : `${difference} item`} of ${product.title} in the cart`)
                     }
                     break
                 case "addQuantityFromCart":
-                    dispatch(updateCart({ ...product, quantity: quantity })) 
+                    update(product, cart, quantity, dispatch)
                     break
                 default:
                     console.log('Invalid Action')
                     break
             }
         }else{
-            dispatch(updateCart({ ...product, quantity: quantity }))
-
+            update(product, cart, quantity, dispatch)
             notification("info", `${product.title} added to Cart`)
         }
 
     }else{
-        dispatch(updateCart({ ...product, quantity: quantity }))
-
+        update(product, cart, quantity, dispatch)
         notification("info", `${product.title} added to Cart`)
     }
 }
@@ -74,9 +92,13 @@ export const quantityCheck = (product, availStock, dispatch, cartItems, quantity
     }
 }
 
-export const removeItemFromCart = (id, title, dispatch) => {
+export const removeItemFromCart = (id, title, cart, dispatch) => {
 
-    dispatch(removeItem(id))
+    const newCart = cart.items.filter((prod) => prod.id !== id)
+
+    const quantity = newCart.map(prod => prod.quantity)
+
+    dispatch(removeItem({ items: newCart, count: _.sum(quantity) }))
 
     notification("danger", `${title} removed from the Cart`)
 }

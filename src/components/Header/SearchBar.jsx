@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { SearchIcon } from '@heroicons/react/outline'
 
 const SearchBar = () => {

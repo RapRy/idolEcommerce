@@ -42,10 +42,7 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
                             curProds.push(shuffledData[i])
                     }
 
-                    setCurProds(curProds)
-
-                    console.log('fetch')
-                    
+                    setCurProds(curProds)   
                     
                 }else if(status === 400){
                     console.log('no results')
@@ -59,7 +56,6 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
     }
 
     const resetGrid = (offset) => {
-        console.log(pageNumber)
 
         setPageCount(Math.ceil(products.length / offset))
         const newOffset = offset * (parseInt(pageNumber) - 1)

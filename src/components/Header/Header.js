@@ -30,7 +30,7 @@ const Header = () => {
             }
         })
 
-        if(window.matchMedia("(min-width: 1024px)").matches){
+        if(window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(min-width: 1280px)").matches || window.matchMedia("(min-width: 1536px)").matches){
             dispatch(setIsMobile(!isMobile))
         }
     }, [])
@@ -42,10 +42,10 @@ const Header = () => {
                     <div className="bg-blue-900 px-6 py-2">
                         <div className="grid grid-cols-2 md:grid-cols-customGrid2 md:gap-14 items-center max-w-screen-xl mx-auto">
                             <div className="md:justify-self-end">
-                                <p className="font-ubuntu text-gray-300 text-sm">Don't have an account? <Link to="/register" className="underline text-white">Register</Link></p>
+                                <p className="font-ubuntu text-gray-300 text-sm">Don't have an account? <Link to="/register" onClick={() => dispatch(setSelectedCategory("Register"))} className="underline text-white">Register</Link></p>
                             </div>
                             <div className="justify-self-end">
-                                <Link to="/login" className="text-white"><UserIcon className="w-7 h-7 inline-block mr-1" /> <span className="font-ubuntu text-sm">Login</span></Link>
+                                <Link to="/login" onClick={() => dispatch(setSelectedCategory("Login"))} className="text-white"><UserIcon className="w-7 h-7 inline-block mr-1" /> <span className="font-ubuntu text-sm">Login</span></Link>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 export const dataSlice = createSlice({
     name: 'dataSlice',
@@ -19,28 +19,10 @@ export const dataSlice = createSlice({
             state.products = action.payload
         },
         updateCart: (state, action) => {
-            const newCart = state.cart.items.filter((prod) => prod.id !== action.payload.id)
-
-            if(state.cart.items.length > 0){
-                state.cart.items = [ ...newCart, action.payload ]
-                const quantity = state.cart.items.map(prod => prod.quantity)
-
-                state.cart.count = _.sum(quantity)
-            }else{
-                state.cart.items = [ ...state.cart.items, action.payload ]
-                const quantity = state.cart.items.map(prod => prod.quantity)
-
-                state.cart.count = _.sum(quantity)
-            }
+            state.cart = action.payload
         },
         removeItem: (state, action) => {
-            const newCart = state.cart.items.filter((prod) => prod.id !== action.payload)
-
-            state.cart.items = newCart
-
-            const quantity = newCart.map(prod => prod.quantity)
-
-            state.cart.count = _.sum(quantity)
+            state.cart = action.payload
         },
         removeAll: (state) => {
             state.cart = { items: [], count: 0 }
