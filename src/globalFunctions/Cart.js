@@ -56,9 +56,11 @@ export const addToCart = async (product, dispatch, cart, quantity, actionType) =
 
             switch(actionType){
                 case "addToCart":
+                    // notify if item already on the cart
                     notification("warning", `${product.title} is already on the Cart. Go to Cart to add Quantity of this Product`)
                     break
                 case "addQuantity":
+                    
                     const difference = quantity - result[0].quantity
 
                     if(difference === 0){
