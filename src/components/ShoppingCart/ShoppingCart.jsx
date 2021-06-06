@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-
 import { ChevronRightIcon } from '@heroicons/react/outline'
+
 import Item from './Item'
 import Checkout from './Checkout'
 import OtherProducts from '../Products/OtherProducts'

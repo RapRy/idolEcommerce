@@ -2,17 +2,16 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import { useHistory, useParams } from 'react-router-dom'
+import _ from 'lodash'
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
 
 import * as api from '../../api'
 import { setProducts } from '../../redux/dataReducer'
-import _ from 'lodash'
-
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
-
 import Thumbnail from './Thumbnail'
 
 const ProductList = ({ heading, apiRoute, domRoute }) => {
     const dispatch = useDispatch()
+
     const history = useHistory()
     const { pageNumber, category } = useParams()
 
@@ -20,35 +19,40 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
     const [currentProducts, setCurProds] = useState([])
     const [pageCount, setPageCount] = useState(0)
     const [offset, setOffset] = useState(6) 
-
+    // update route page number
     const pageChange = ({selected}) => history.push(`${domRoute}/${selected + 1}`)
 
     const apiRequest = (offset) => {
         try {
             const fetchProducts = async () => {
+                // api request
                 const { data, status } = await api.getProducts(apiRoute)
 
                 if(status === 200){
+                    //shuffle data
                     const shuffledData = _.shuffle(data)
                     const curProds = []
                     const limit = offset
-
+                    // update global state products
                     dispatch(setProducts(shuffledData))
+                    // update local state products
                     setProds(shuffledData)
+                    // update local state pageCount
                     setPageCount(Math.ceil(data.length / offset))
 
+                    // end loop based on the limit variable
                     for(let i = 0; i < limit; i++){
                         if(shuffledData[i] !== undefined)
                             curProds.push(shuffledData[i])
                     }
-
+                    // update local state currentProducts
                     setCurProds(curProds)   
                     
                 }else if(status === 400){
                     console.log('no results')
                 }
             }
-
+            // invoke function
             fetchProducts()
         } catch (error) {
             console.log(error)
@@ -56,21 +60,25 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
     }
 
     const resetGrid = (offset) => {
-
+        // update local state pageCount
         setPageCount(Math.ceil(products.length / offset))
+        // set new offset, convert pageNumber variable to integer then deduct 1 because of the indexing of the react-paginate (it will start at page 0 instead of page 1 but the page that will be shown in url is page 1)
         const newOffset = offset * (parseInt(pageNumber) - 1)
+        // set new limit 
         const limit = newOffset + offset
         const curProds = []
 
         if(_.isEmpty(products)){
+            // if local state products is empty return to home
             history.push('/')
         }else{
+             // if local state products not empty, end loop based on the new limit variable
             for(let i = newOffset; i < limit; i++){
 
                 if(products[i] !== undefined)
                     curProds.push(products[i])
             }
-
+            // update local state currentProducts
             setCurProds(curProds)
         }
     }
@@ -78,23 +86,31 @@ const ProductList = ({ heading, apiRoute, domRoute }) => {
     useEffect(() => {
 
         if(window.matchMedia("(min-width: 1280px)").matches){
+            // update local state offset
             setOffset(10)
             if(pageNumber !== undefined || products.length > 10){
+                // reset number of grids or reset number of products to be shown per page
                 resetGrid(10)
             }else{
+                // make a request to api
                 apiRequest(10)  
             }
         }else if(window.matchMedia("(min-width: 1024px)").matches){
+            // update local state offset
             setOffset(8)
             if(pageNumber !== undefined || products.length > 8){
+                // reset number of grids or reset number of products to be shown per page
                 resetGrid(8)
             }else{
+                // make a request to api
                 apiRequest(8)  
             }
         }else{
             if(pageNumber !== undefined || products.length > offset){
+                // reset number of grids or reset number of products to be shown per page
                 resetGrid(offset)
             }else{
+                // make a request to api
                 apiRequest(offset)  
             }
         }

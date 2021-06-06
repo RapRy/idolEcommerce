@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const Categories = () => {
-    // const [isMobile, setIsMobile] = useState(true)
     const { categories } = useSelector(state => state.data)
 
     return (

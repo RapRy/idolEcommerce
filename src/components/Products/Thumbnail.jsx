@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { ShoppingCartIcon } from '@heroicons/react/solid'
 
 import { addToCart } from '../../globalFunctions/Cart'
-
-import { ShoppingCartIcon } from '@heroicons/react/solid'
 
 const Thumbnail = ({ product }) => {
     const dispatch = useDispatch()

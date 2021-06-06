@@ -13,7 +13,9 @@ const Item = ({ prod }) => {
     const { cart } = useSelector(state => state.data)
 
     useEffect(() => {
+        // validate if local state quantity updated
         if(prod.quantity !== quantity){
+            // update quantity of this item
             quantityCheck(prod, availStock, dispatch, cart, quantity, setQuantity, 'addQuantityFromCart')
         }
     }, [quantity]) // eslint-disable-line react-hooks/exhaustive-deps

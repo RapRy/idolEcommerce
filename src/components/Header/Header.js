@@ -1,14 +1,12 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useRouteMatch } from 'react-router-dom'
+import { ShoppingCartIcon, ShoppingBagIcon, UserIcon } from '@heroicons/react/solid'
 
 import { setIsMobile, setSelectedCategory } from '../../redux/navReducer'
 
 import Navigation from './Navigation'
 import SearchBar from './SearchBar'
-import { ShoppingCartIcon, ShoppingBagIcon, UserIcon } from '@heroicons/react/solid'
-
 
 const Header = () => {
     const { cart } = useSelector(state => state.data)
@@ -20,17 +18,21 @@ const Header = () => {
     const passForgot = useRouteMatch("/password/forgot")
 
     useEffect(() => {
+        // window resize event
         window.addEventListener('resize', () => {
             if(window.matchMedia("(min-width: 1024px)").matches){
                 if(setIsMobile !== false)
+                    // update global state isMobile, set to false
                     dispatch(setIsMobile(!isMobile))
             }else{
                 if(setIsMobile !== true)
+                    // update global state isMobile, set to true
                     dispatch(setIsMobile(true))
             }
         })
 
         if(window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(min-width: 1280px)").matches || window.matchMedia("(min-width: 1536px)").matches){
+            // update global state isMobile, set to false
             dispatch(setIsMobile(!isMobile))
         }
     }, [dispatch]) // eslint-disable-line react-hooks/exhaustive-deps

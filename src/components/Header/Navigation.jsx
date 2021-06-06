@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { setCategories } from '../../redux/dataReducer'
-import { setSelectedCategory } from '../../redux/navReducer'
-import * as api from '../../api'
-
 import { Listbox } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/outline'
+
+import { setCategories } from '../../redux/dataReducer'
+import { setSelectedCategory } from '../../redux/navReducer'
+import * as api from '../../api'
 import SearchBar from './SearchBar'
 
 const Navigation = ({ isMobile }) => {
     const dispatch = useDispatch()
     const { selectedCategory } = useSelector(state => state.nav)
+
     const [categories, setCats] = useState([]) 
     const [isShow, setIsShow] = useState(false)
 
     const handleClickCategory = (cat) => {
+        // update global state selectedCategory
         dispatch(setSelectedCategory(cat))
+        // update local state isShow, set True
         setIsShow((prevState) => !prevState)
     }
 
@@ -25,16 +28,19 @@ const Navigation = ({ isMobile }) => {
 
         try {
             const fetchCategories = async () => {
+                // api request
                 const { data, status } = await api.getCategories()
     
                 if(status === 200){
+                    // update global state categories
                     dispatch(setCategories(data))
+                    // update local state categories
                     setCats(data)
                 }else if(status === 400){
                     console.log('no results')
                 }
             }
-            
+            // invoke function
             fetchCategories()
         } catch (error) {
             console.log(error)

@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
 
 import { removeAllFromCart } from '../../globalFunctions/Cart'
 
-import _ from 'lodash'
-
 const Checkout = () => {
     const [subTotal, setSubTotal] = useState(0)
+
     const { cart } = useSelector(state => state.data)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        // calculate total price
         const total = cart.items.map((prod) => prod.price * prod.quantity)
-
+        // update local state subTotal
         setSubTotal(_.sum(total))
     }, [cart.count]) // eslint-disable-line react-hooks/exhaustive-deps
 

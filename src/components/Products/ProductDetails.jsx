@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
+import { ChevronRightIcon } from '@heroicons/react/outline'
 
 import * as api from '../../api'
 import { quantityCheck } from '../../globalFunctions/Cart'
-
 import OtherProducts from "../Products/OtherProducts"
-import { ChevronRightIcon } from '@heroicons/react/outline'
 
 const availStock = 30
 
 const ProductDetails = () => {
     const { id } = useParams()
+
     const [details, setDetails] = useState({})
     const [quantity, setQuantity] = useState(1)
+
     const dispatch = useDispatch()
     const { cart } = useSelector(state => state.data)
     const { isMobile } = useSelector(state => state.nav)
@@ -21,19 +22,22 @@ const ProductDetails = () => {
     useEffect(() => {
         try {
             const fetchDetails = async () => {
+                // api request and response
                 const { data, status } = await api.getProductDetails(id)
 
                 if(status === 200){
+                    // update state
                     setDetails(data)
-
+                    // get quantity value of selected item
                     const fromCartQuantity = cart.items.filter((prod) => prod.id === data.id)
+                    // update state
                     setQuantity(fromCartQuantity.length > 0 ? fromCartQuantity[0].quantity : 1)
 
                 }else if(status === 400){
                     console.log('no details')
                 }
             }
-
+            // invoke function
             fetchDetails()
         } catch (error) {
             console.log(error)
