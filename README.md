@@ -5,8 +5,9 @@
 > Just like _IDOL SHOPPING NETWORK_, you can add items and view the cart and you can also view specific category and product. There are still many features that I haven't implemented on this project like user login and registration, ability to checkout in the cart and many more. I used a free rest api for the products details and categories, check the link below for the api.
 
 
-demo link goes here
-and api
+**Demo Link: [idolecom](https://idolecom.netlify.app/)**
+
+**Api Link: [Fake Store API](https://fakestoreapi.com/)**
 
 ## Tech's used to build this project
 - **[React JS](https://reactjs.org/)**
