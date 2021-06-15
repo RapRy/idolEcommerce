@@ -1,3 +1,5 @@
+![](https://i.ibb.co/brn0pLY/idolEcom.png)
+
 # Idol Ecommerce
 
 > This project is based from **[IDOL SHOPPING NETWORK](https://idolshoppingnetwork.com/)**. I have no intentions to make profit on this project or anything that is harmful to the developer and owner of the _IDOL SHOPPING NETWORK_ website, this is just to showcase my skills in building website using react and other front end technologies that I used to build this project.
