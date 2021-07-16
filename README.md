@@ -20,7 +20,7 @@
 - [x] **view product details**   
 - [x] **remove item/s from the cart**
 - [x] **calculate total amount of items in the cart**  
-- [x] **notifications when adding and removing products
+- [x] **notifications when adding and removing product/s**
 - [x] **pagination** 
 
 ## Features to be implemented
