@@ -12,7 +12,7 @@
 
 **Api Link: [Fake Store API](https://fakestoreapi.com/)**
 
-## Features
+#### Features
 - [x] **add items**
 - [x] **adjust quantity of items in the cart**
 - [x] **view cart**
@@ -23,11 +23,11 @@
 - [x] **notifications when adding and removing product/s**
 - [x] **pagination** 
 
-## Features to be implemented
+#### Features to be implemented
 - [ ] **user login and registration**
 - [ ] **ability to checkout cart** 
 
-## Tech's used to build this project
+#### Tech's used to build this project
 - **[React JS](https://reactjs.org/)**
 - **[Tailwindcss](https://tailwindcss.com/)**
 - **[Headless UI](https://headlessui.dev/)**
